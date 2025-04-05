@@ -1,6 +1,7 @@
 import requests
 import base64
 import logging
+import os
 from urllib.parse import quote
 
 # Setup logging
@@ -44,14 +45,25 @@ def get_file_content(owner, repo, path, branch='main'):
     
     logger.debug(f"Fetching file from GitHub: {url}")
     
+    # Prepare headers
+    headers = {
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'TwitchGithubReader/1.0'
+    }
+    
+    # Use GitHub token for authentication if available
+    github_token = os.environ.get('GITHUB_TOKEN')
+    if github_token:
+        headers['Authorization'] = f'token {github_token}'
+        logger.debug("Using GitHub authentication token")
+    else:
+        logger.warning("No GitHub token found, using unauthenticated requests (rate limited)")
+    
     try:
         # Make the request to GitHub API
         response = requests.get(
             url,
-            headers={
-                'Accept': 'application/vnd.github.v3+json',
-                'User-Agent': 'TwitchGithubReader/1.0'
-            },
+            headers=headers,
             timeout=10
         )
         

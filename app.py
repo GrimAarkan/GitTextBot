@@ -12,8 +12,8 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "default-dev-secret")
 
-# Initialize rate limiter (500 requests per hour per IP)
-rate_limiter = RateLimiter(600, 3600)
+# Initialize rate limiter (1000 requests per hour per IP)
+rate_limiter = RateLimiter(1000, 3600)
 
 @app.route('/')
 def index():
