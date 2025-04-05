@@ -1,1 +1,88 @@
+/* Custom styles beyond Bootstrap defaults */
 
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Improve code block readability */
+pre {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Improve spacing for card content */
+.card {
+    margin-bottom: 1rem;
+}
+
+.card-title {
+    margin-bottom: 1rem;
+}
+
+/* Styling for the API test section */
+#result {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Make icons in cards a bit larger */
+.card-body i.fs-1 {
+    font-size: 2.5rem !important;
+}
+
+/* Add some hover effects to cards */
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Custom button styling */
+.btn-primary {
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.btn-secondary {
+    box-shadow: 0 2px 5px rgba(108, 117, 125, 0.2);
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+}
+
+/* Style for code blocks and inline code */
+code {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    padding: 0.1rem 0.2rem;
+    font-size: 90%;
+    border-radius: 0.2rem;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Header styling */
+header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Footer styling */
+footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Make links stand out a bit more */
+a:not(.btn) {
+    transition: color 0.2s ease;
+}
+
+a:not(.btn):hover {
+    text-decoration: underline;
+}
