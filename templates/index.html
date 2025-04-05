@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub File Reader API for Twitch</title>
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="container py-4">
+        <header class="pb-3 mb-4 border-bottom">
+            <div class="d-flex align-items-center text-white">
+                <i class="bi bi-github fs-1 me-3"></i>
+                <span class="fs-4">GitHub File Reader API for Twitch</span>
+            </div>
+        </header>
+
+        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">Read GitHub Files in Your Twitch Chat</h1>
+                <p class="fs-4">A simple API that allows Twitch chatbots to fetch and display text file content from public GitHub repositories.</p>
+                <a href="/documentation" class="btn btn-primary btn-lg">View Detailed Documentation</a>
+            </div>
+        </div>
+
+        <div class="row g-4 py-5">
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title"><i class="bi bi-code-slash me-2"></i>Quick Start</h2>
+                        <p class="card-text">The API endpoint to use is:</p>
+                        <div class="bg-dark p-3 rounded mb-3">
+                            <code>/api/github/read?owner=&lt;owner&gt;&repo=&lt;repo&gt;&path=&lt;path&gt;</code>
+                        </div>
+                        <p>Required parameters:</p>
+                        <ul>
+                            <li><code>owner</code>: GitHub username or organization</li>
+                            <li><code>repo</code>: Repository name</li>
+                            <li><code>path</code>: Path to the file within the repository</li>
+                        </ul>
+                        <p>Optional parameters:</p>
+                        <ul>
+                            <li><code>branch</code>: Branch name (default: main)</li>
+                            <li><code>format</code>: Response format - plain, json, or oneline (default: plain)</li>
+                            <li><code>max_length</code>: Maximum characters to return (default: 500)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title"><i class="bi bi-twitch me-2"></i>Twitch Integration</h2>
+                        <p class="card-text">Example usage with Nightbot:</p>
+                        <div class="bg-dark p-3 rounded mb-3">
+                            <code>!addcom !github $(urlfetch https://your-domain.com/api/github/read?owner=$(querystring)&repo=$(1)&path=$(2)&format=oneline)</code>
+                        </div>
+                        <p class="mb-2">Usage in chat:</p>
+                        <div class="bg-dark p-3 rounded mb-3">
+                            <code>!github githubUsername repository-name path/to/file.txt</code>
+                        </div>
+                        <p class="mb-0">Example with StreamElements:</p>
+                        <div class="bg-dark p-3 rounded">
+                            <code>!addcom !repo ${urlfetch https://your-domain.com/api/github/read?owner=${1}&repo=${2}&path=${3}&format=oneline}</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title"><i class="bi bi-lightning-charge me-2"></i>Test the API</h2>
+                        <div class="mb-3">
+                            <label for="owner" class="form-label">Repository Owner:</label>
+                            <input type="text" class="form-control" id="owner" placeholder="e.g., microsoft">
+                        </div>
+                        <div class="mb-3">
+                            <label for="repo" class="form-label">Repository Name:</label>
+                            <input type="text" class="form-control" id="repo" placeholder="e.g., vscode">
+                        </div>
+                        <div class="mb-3">
+                            <label for="path" class="form-label">File Path:</label>
+                            <input type="text" class="form-control" id="path" placeholder="e.g., README.md">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="branch" class="form-label">Branch (optional):</label>
+                                <input type="text" class="form-control" id="branch" placeholder="main">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="format" class="form-label">Format:</label>
+                                <select class="form-select" id="format">
+                                    <option value="plain">Plain text</option>
+                                    <option value="json">JSON</option>
+                                    <option value="oneline">One line (for chat)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button id="testBtn" class="btn btn-primary">Test API Call</button>
+                        <div class="mt-3" id="resultContainer" style="display: none;">
+                            <label class="form-label">Result:</label>
+                            <div class="bg-dark p-3 rounded">
+                                <pre id="result" class="mb-0"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="bi bi-shield-check text-success fs-1 mb-3"></i>
+                        <h3>Secure & Reliable</h3>
+                        <p>Works only with public repositories and includes rate limiting to prevent abuse.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="bi bi-lightning text-warning fs-1 mb-3"></i>
+                        <h3>Fast Response</h3>
+                        <p>Optimized for quick responses to keep your Twitch chat flowing smoothly.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="bi bi-chat-dots text-info fs-1 mb-3"></i>
+                        <h3>Chat-friendly</h3>
+                        <p>Special formatting options designed specifically for chat commands.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="pt-5 my-5 text-muted border-top">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>GitHub File Reader API for Twitch &copy; 2023</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>
+                        <a href="/" class="text-decoration-none me-3">Home</a>
+                        <a href="/documentation" class="text-decoration-none">Documentation</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

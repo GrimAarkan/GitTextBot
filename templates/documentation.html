@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - GitHub File Reader API for Twitch</title>
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="container py-4">
+        <header class="pb-3 mb-4 border-bottom">
+            <div class="d-flex align-items-center text-white">
+                <i class="bi bi-github fs-1 me-3"></i>
+                <span class="fs-4">GitHub File Reader API for Twitch</span>
+            </div>
+        </header>
+
+        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">API Documentation</h1>
+                <p class="fs-4">Detailed information about using the GitHub File Reader API with Twitch chatbots.</p>
+                <a href="/" class="btn btn-secondary btn-lg">Back to Home</a>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title" id="api-reference"><i class="bi bi-book me-2"></i>API Reference</h2>
+                        
+                        <h3 class="mt-4">Endpoint</h3>
+                        <div class="bg-dark p-3 rounded mb-3">
+                            <code>GET /api/github/read</code>
+                        </div>
+                        
+                        <h3 class="mt-4">Parameters</h3>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>owner</code></td>
+                                    <td>string</td>
+                                    <td>Yes</td>
+                                    <td>-</td>
+                                    <td>GitHub username or organization name</td>
+                                </tr>
+                                <tr>
+                                    <td><code>repo</code></td>
+                                    <td>string</td>
+                                    <td>Yes</td>
+                                    <td>-</td>
+                                    <td>Repository name</td>
+                                </tr>
+                                <tr>
+                                    <td><code>path</code></td>
+                                    <td>string</td>
+                                    <td>Yes</td>
+                                    <td>-</td>
+                                    <td>Path to the file within the repository</td>
+                                </tr>
+                                <tr>
+                                    <td><code>branch</code></td>
+                                    <td>string</td>
+                                    <td>No</td>
+                                    <td>main</td>
+                                    <td>Branch name</td>
+                                </tr>
+                                <tr>
+                                    <td><code>format</code></td>
+                                    <td>string</td>
+                                    <td>No</td>
+                                    <td>plain</td>
+                                    <td>Response format (plain, json, oneline)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>max_length</code></td>
+                                    <td>integer</td>
+                                    <td>No</td>
+                                    <td>500</td>
+                                    <td>Maximum characters to return (1-5000)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <h3 class="mt-4">Response Formats</h3>
+                        <div class="accordion" id="responseFormatsAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="plainTextHeading">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#plainTextCollapse" aria-expanded="true" aria-controls="plainTextCollapse">
+                                        <code>plain</code> (default)
+                                    </button>
+                                </h2>
+                                <div id="plainTextCollapse" class="accordion-collapse collapse show" aria-labelledby="plainTextHeading" data-bs-parent="#responseFormatsAccordion">
+                                    <div class="accordion-body">
+                                        <p>Returns the raw file content with text/plain content type.</p>
+                                        <p>Example response:</p>
+                                        <div class="bg-dark p-3 rounded">
+                                            <pre class="mb-0"># My README file
+
+This is an example README file.
+- Item 1
+- Item 2</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="jsonHeading">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#jsonCollapse" aria-expanded="false" aria-controls="jsonCollapse">
+                                        <code>json</code>
+                                    </button>
+                                </h2>
+                                <div id="jsonCollapse" class="accordion-collapse collapse" aria-labelledby="jsonHeading" data-bs-parent="#responseFormatsAccordion">
+                                    <div class="accordion-body">
+                                        <p>Returns JSON with file content and metadata.</p>
+                                        <p>Example response:</p>
+                                        <div class="bg-dark p-3 rounded">
+                                            <pre class="mb-0">{
+    "content": "# My README file\n\nThis is an example README file.\n- Item 1\n- Item 2",
+    "truncated": false,
+    "full_size": 68,
+    "repo": "username/repository",
+    "path": "README.md",
+    "branch": "main",
+    "status": 200
+}</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="onelineHeading">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#onelineCollapse" aria-expanded="false" aria-controls="onelineCollapse">
+                                        <code>oneline</code>
+                                    </button>
+                                </h2>
+                                <div id="onelineCollapse" class="accordion-collapse collapse" aria-labelledby="onelineHeading" data-bs-parent="#responseFormatsAccordion">
+                                    <div class="accordion-body">
+                                        <p>Returns the content formatted as a single line, suitable for Twitch chat.</p>
+                                        <p>Example response:</p>
+                                        <div class="bg-dark p-3 rounded">
+                                            <pre class="mb-0"># My README file This is an example README file. - Item 1 - Item 2</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 class="mt-4">Error Responses</h3>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Status Code</th>
+                                    <th>Description</th>
+                                    <th>Example (JSON format)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>400</td>
+                                    <td>Bad request - missing required parameters</td>
+                                    <td><code>{"error": "Missing required parameters. Please provide 'owner', 'repo', and 'path'.", "status": 400}</code></td>
+                                </tr>
+                                <tr>
+                                    <td>404</td>
+                                    <td>Repository or file not found</td>
+                                    <td><code>{"error": "Repository or file not found: Not Found", "status": 404}</code></td>
+                                </tr>
+                                <tr>
+                                    <td>403</td>
+                                    <td>GitHub API rate limit exceeded</td>
+                                    <td><code>{"error": "API rate limit exceeded: API rate limit exceeded", "status": 403}</code></td>
+                                </tr>
+                                <tr>
+                                    <td>413</td>
+                                    <td>File is too large (>1MB)</td>
+                                    <td><code>{"error": "File is too large (>1MB)", "status": 413}</code></td>
+                                </tr>
+                                <tr>
+                                    <td>415</td>
+                                    <td>File is not a text file</td>
+                                    <td><code>{"error": "File is not a text file", "status": 415}</code></td>
+                                </tr>
+                                <tr>
+                                    <td>429</td>
+                                    <td>Service rate limit exceeded</td>
+                                    <td><code>{"error": "Rate limit exceeded. Please try again later.", "status": 429}</code></td>
+                                </tr>
+                                <tr>
+                                    <td>500</td>
+                                    <td>Unexpected server error</td>
+                                    <td><code>{"error": "An unexpected error occurred", "status": 500}</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title" id="twitch-integration"><i class="bi bi-twitch me-2"></i>Twitch Chatbot Integration</h2>
+                        
+                        <h3 class="mt-4">Nightbot</h3>
+                        <p>To create a command that reads from a GitHub repository:</p>
+                        <div class="bg-dark p-3 rounded mb-3">
+                            <code>!addcom !github $(urlfetch https://your-domain.com/api/github/read?owner=$(1)&repo=$(2)&path=$(3)&format=oneline)</code>
+                        </div>
+                        <p>Usage in chat:</p>
+                        <div class="bg-dark p-3 rounded mb-4">
+                            <code>!github microsoft vscode README.md</code>
+                        </div>
+                        
+                        <h3 class="mt-4">StreamElements</h3>
+                        <p>Create a command that reads from a GitHub repository:</p>
+                        <div class="bg-dark p-3 rounded mb-3">
+                            <code>!addcom !github ${urlfetch https://your-domain.com/api/github/read?owner=${1}&repo=${2}&path=${3}&format=oneline}</code>
+                        </div>
+                        <p>Usage in chat:</p>
+                        <div class="bg-dark p-3 rounded mb-4">
+                            <code>!github microsoft vscode README.md</code>
+                        </div>
+                        
+                        <h3 class="mt-4">Moobot</h3>
+                        <p>Create a command that reads from a GitHub repository:</p>
+                        <div class="bg-dark p-3 rounded mb-3">
+                            <code>!addcommand !github $(fetch https://your-domain.com/api/github/read?owner=$(query)&repo=$(1)&path=$(2)&format=oneline)</code>
+                        </div>
+                        <p>Usage in chat:</p>
+                        <div class="bg-dark p-3 rounded mb-4">
+                            <code>!github microsoft vscode README.md</code>
+                        </div>
+                        
+                        <h3 class="mt-4">Using with fixed repositories</h3>
+                        <p>You can create commands for specific files in your repositories:</p>
+                        <div class="bg-dark p-3 rounded mb-3">
+                            <code>!addcom !readme $(urlfetch https://your-domain.com/api/github/read?owner=youruser&repo=yourrepo&path=README.md&format=oneline)</code>
+                        </div>
+                        <p>Usage in chat:</p>
+                        <div class="bg-dark p-3 rounded">
+                            <code>!readme</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title" id="limitations"><i class="bi bi-exclamation-triangle me-2"></i>Limitations</h2>
+                        
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item">Works only with public GitHub repositories</li>
+                            <li class="list-group-item">Maximum file size: 1MB</li>
+                            <li class="list-group-item">Default maximum response length: 500 characters (configurable up to 5000)</li>
+                            <li class="list-group-item">Rate limit: 500 requests per hour per IP address</li>
+                            <li class="list-group-item">Subject to GitHub's API rate limits (60 requests per hour for unauthenticated requests)</li>
+                            <li class="list-group-item">Only text files are supported (not binary files)</li>
+                        </ul>
+                        
+                        <div class="alert alert-warning">
+                            <h4 class="alert-heading"><i class="bi bi-info-circle me-2"></i>Important Note</h4>
+                            <p>When using the API in Twitch chat commands, be aware that most chatbots have character limits for responses:</p>
+                            <ul class="mb-0">
+                                <li>Nightbot: ~400 characters</li>
+                                <li>StreamElements: ~500 characters</li>
+                                <li>Moobot: ~400 characters</li>
+                            </ul>
+                            <p class="mt-3 mb-0">You may need to adjust the <code>max_length</code> parameter accordingly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title" id="examples"><i class="bi bi-code-slash me-2"></i>Examples</h2>
+                        
+                        <h3 class="mt-4">Basic Examples</h3>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Read a README file</td>
+                                    <td><code>/api/github/read?owner=microsoft&repo=vscode&path=README.md</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Read from a specific branch</td>
+                                    <td><code>/api/github/read?owner=microsoft&repo=vscode&path=README.md&branch=dev</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Get JSON response</td>
+                                    <td><code>/api/github/read?owner=microsoft&repo=vscode&path=README.md&format=json</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Get chat-friendly response</td>
+                                    <td><code>/api/github/read?owner=microsoft&repo=vscode&path=README.md&format=oneline</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Limit response length</td>
+                                    <td><code>/api/github/read?owner=microsoft&repo=vscode&path=README.md&max_length=200</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <h3 class="mt-4">Common Use Cases</h3>
+                        <div class="accordion" id="useCasesAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="commandsHeading">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#commandsCollapse" aria-expanded="true" aria-controls="commandsCollapse">
+                                        Display bot commands from a GitHub file
+                                    </button>
+                                </h2>
+                                <div id="commandsCollapse" class="accordion-collapse collapse show" aria-labelledby="commandsHeading" data-bs-parent="#useCasesAccordion">
+                                    <div class="accordion-body">
+                                        <p>Store your bot commands in a file on GitHub and display them in chat:</p>
+                                        <div class="bg-dark p-3 rounded mb-3">
+                                            <code>!addcom !commands $(urlfetch https://your-domain.com/api/github/read?owner=youruser&repo=twitch-bot&path=commands.txt&format=oneline)</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="rulesHeading">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rulesCollapse" aria-expanded="false" aria-controls="rulesCollapse">
+                                        Display channel rules from a GitHub file
+                                    </button>
+                                </h2>
+                                <div id="rulesCollapse" class="accordion-collapse collapse" aria-labelledby="rulesHeading" data-bs-parent="#useCasesAccordion">
+                                    <div class="accordion-body">
+                                        <p>Store your channel rules in a file on GitHub and display them in chat:</p>
+                                        <div class="bg-dark p-3 rounded mb-3">
+                                            <code>!addcom !rules $(urlfetch https://your-domain.com/api/github/read?owner=youruser&repo=channel-info&path=rules.txt&format=oneline)</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="dynamicHeading">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dynamicCollapse" aria-expanded="false" aria-controls="dynamicCollapse">
+                                        Display information about your current project
+                                    </button>
+                                </h2>
+                                <div id="dynamicCollapse" class="accordion-collapse collapse" aria-labelledby="dynamicHeading" data-bs-parent="#useCasesAccordion">
+                                    <div class="accordion-body">
+                                        <p>When streaming coding sessions, you can create a command to show information about your current project:</p>
+                                        <div class="bg-dark p-3 rounded mb-3">
+                                            <code>!addcom !project $(urlfetch https://your-domain.com/api/github/read?owner=youruser&repo=current-project&path=project-info.md&format=oneline)</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="pt-5 my-5 text-muted border-top">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>GitHub File Reader API for Twitch &copy; 2023</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>
+                        <a href="/" class="text-decoration-none me-3">Home</a>
+                        <a href="/documentation" class="text-decoration-none">Documentation</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
