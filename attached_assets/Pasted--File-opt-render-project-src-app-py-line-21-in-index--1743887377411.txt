@@ -1,0 +1,100 @@
+  File "/opt/render/project/src/app.py", line 21, in index
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+         ^^^^^^^^^^^^^^^^^^^^^^^
+    rv = self.dispatch_request()
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    rv = self.handle_user_exception(e)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    response = self.full_dispatch_request()
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+Traceback (most recent call last):
+ERROR:app:Exception on / [HEAD]
+jinja2.exceptions.TemplateNotFound: 500.html
+    raise TemplateNotFound(template)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/templating.py", line 99, in _get_source_fast
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    return self._get_source_fast(environment, template)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/templating.py", line 65, in get_source
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    source, filename, uptodate = self.get_source(environment, name)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/jinja2/loaders.py", line 126, in load
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 975, in _load_template
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    return self._load_template(name, globals)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1016, in get_template
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/templating.py", line 149, in render_template
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    return render_template('500.html'), 500
+  File "/opt/render/project/src/app.py", line 135, in server_error
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    server_error = self.ensure_sync(handler)(server_error)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/app.py", line 860, in handle_exception
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+    response = self.handle_exception(e)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/app.py", line 1514, in wsgi_app
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    return self.wsgi_app(environ, start_response)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/app.py", line 1536, in __call__
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/gunicorn/workers/sync.py", line 177, in handle_request
+    raise value
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/gunicorn/util.py", line 640, in reraise
+    util.reraise(*sys.exc_info())
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/gunicorn/workers/sync.py", line 192, in handle_request
+    self.handle_request(listener, req, client, addr)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/gunicorn/workers/sync.py", line 134, in handle
+Traceback (most recent call last):
+During handling of the above exception, another exception occurred:
+jinja2.exceptions.TemplateNotFound: index.html
+    raise TemplateNotFound(template)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/templating.py", line 99, in _get_source_fast
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    return self._get_source_fast(environment, template)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/templating.py", line 65, in get_source
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    source, filename, uptodate = self.get_source(environment, name)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/jinja2/loaders.py", line 126, in load
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 975, in _load_template
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    return self._load_template(name, globals)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1016, in get_template
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1087, in get_or_select_template
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/templating.py", line 149, in render_template
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    return render_template('index.html')
+  File "/opt/render/project/src/app.py", line 21, in index
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+         ^^^^^^^^^^^^^^^^^^^^^^^
+    rv = self.dispatch_request()
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    rv = self.handle_user_exception(e)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    response = self.full_dispatch_request()
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+Traceback (most recent call last):
+[2025-04-05 21:10:15 +0000] [77] [ERROR] Socket error processing request.
+jinja2.exceptions.TemplateNotFound: index.html
+    raise TemplateNotFound(template)
+  File "/opt/render/project/src/.venv/lib/python3.11/site-packages/flask/templating.py", line 99, in _get_
