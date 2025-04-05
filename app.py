@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "default-dev-secret")
 
 # Initialize rate limiter (500 requests per hour per IP)
-rate_limiter = RateLimiter(500, 3600)
+rate_limiter = RateLimiter(600, 3600)
 
 @app.route('/')
 def index():
